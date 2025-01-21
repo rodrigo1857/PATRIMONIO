@@ -1,7 +1,7 @@
 -- TABLA PATRIMONIO AREA
 ------------------------------------------------
 
-create table if not exists public.patrimonio_area
+create table if not exists bytsscom_bytsig.patrimonio_area
 (
     id_patrimonio_area integer not null
         constraint pk_patrimonio_area
@@ -13,30 +13,30 @@ create table if not exists public.patrimonio_area
     tipo               varchar not null
 );
 
-alter table public.patrimonio_area
-    owner to postgres;
+alter table bytsscom_bytsig.patrimonio_area
+    owner to bytsscom_bytsig;
 
 -- TABLA PATRIMONIO AMBIENTE
 ------------------------------------------------
-create table if not exists public.patrimonio_ambiente
+create table if not exists bytsscom_bytsig.patrimonio_ambiente
 (
     id_patrimonio_ambiente serial
         constraint pk_patrimonio_ambiente
             primary key,
     id_patrimonio_area     integer not null
         constraint fk_patrimonio_ambiente_id_patrimonio_area
-            references public.patrimonio_area,
+            references bytsscom_bytsig.patrimonio_area,
     codigo                 varchar not null,
     nombre                 varchar not null,
     tipo                   varchar not null
 );
 
-alter table public.patrimonio_ambiente
-    owner to postgres;
+alter table bytsscom_bytsig.patrimonio_ambiente
+    owner to bytsscom_bytsig;
 
 -- TABLA PATRIMONIO REGISTRO
 ------------------------------------------------
-create table if not exists public.patrimonio_registro
+create table if not exists bytsscom_bytsig.patrimonio_registro
 (
     id_patrimonio_registro serial
         constraint pk_patrimonio_registro
@@ -45,7 +45,7 @@ create table if not exists public.patrimonio_registro
     fech_actualizacion     timestamp not null,
     id_patrimonio_ambiente integer   not null
         constraint fk_patrimonio_registro_id_patrimonio_ambiente
-            references public.patrimonio_ambiente,
+            references bytsscom_bytsig.patrimonio_ambiente,
     id_persona_asignada    integer   not null
         constraint patrimonio_registro_persona_id_persona_fk
             references bytsscom_bytcore.persona,
@@ -56,59 +56,59 @@ create table if not exists public.patrimonio_registro
     detalle                text
 );
 
-alter table public.patrimonio_registro
-    owner to postgres;
+alter table bytsscom_bytsig.patrimonio_registro
+    owner to bytsscom_bytsig;
 
 
 -- TABLA PATRIMONIO REGISTRO ORDEN DE COMPRA
 ------------------------------------------------
-create table if not exists public.patrimonio_regoc
+create table if not exists bytsscom_bytsig.patrimonio_regoc
 (
     id_patrimonio_regoc    serial
         constraint pk_patrimonio_regoc
             primary key,
     id_patrimonio_registro integer not null
         constraint fk_patrimonio_regoc_id_patrimonio_registro
-            references public.patrimonio_registro,
+            references bytsscom_bytsig.patrimonio_registro,
     id_contrato            integer not null
         constraint patrimonio_regoc_contrato_id_contrato_fk
             references bytsscom_bytsig.contrato
 );
 
-alter table public.patrimonio_regoc
-    owner to postgres;
+alter table bytsscom_bytsig.patrimonio_regoc
+    owner to bytsscom_bytsig;
 
 
 -- TABLA PATRIMONIO REGISTRO NEA
 ------------------------------------------------
 
-create table if not exists public.patrimonio_regnea
+create table if not exists bytsscom_bytsig.patrimonio_regnea
 (
     id_patrimonio_regnea   serial
         constraint pk_patrimonio_regnea
             primary key,
     id_patrimonio_registro integer not null
         constraint fk_patrimonio_regnea_id_patrimonio_registro
-            references public.patrimonio_registro,
+            references bytsscom_bytsig.patrimonio_registro,
     id_proveedor           integer not null
         constraint patrimonio_regnea_persona_id_persona_fk
             references bytsscom_bytcore.persona,
     id_proyecto            integer
 );
 
-alter table public.patrimonio_regnea
-    owner to postgres;
+alter table bytsscom_bytsig.patrimonio_regnea
+    owner to bytsscom_bytsig;
 
 -- TABLA PATRIMONIO BIEN
 ------------------------------------------------
-create table if not exists public.patrimonio_bien
+create table if not exists bytsscom_bytsig.patrimonio_bien
 (
     id_patrimonio_bien     serial
         constraint pk_patrimonio_bien
             primary key,
     id_patrimonio_registro integer          not null
         constraint fk_patrimonio_bien_id_patrimonio_registro
-            references public.patrimonio_registro,
+            references bytsscom_bytsig.patrimonio_registro,
     id_item                integer          not null
         constraint patrimonio_bien_item_id_item_fk
             references bytsscom_bytsig.item,
@@ -122,6 +122,5 @@ create table if not exists public.patrimonio_bien
     tipo_bien              varchar          not null
 );
 
-alter table public.patrimonio_bien
-    owner to postgres;
-
+alter table bytsscom_bytsig.patrimonio_bien
+    owner to bytsscom_bytsig;
