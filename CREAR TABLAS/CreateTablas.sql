@@ -8,9 +8,7 @@ create table if not exists bytsscom_bytsig.patrimonio_area
             primary key
         constraint patrimonio_area_area_id_area_fk
             references bytsscom_bytcore.area,
-    codigo             varchar not null,
-    nombre             varchar not null,
-    tipo               varchar not null
+    codigo             varchar not null
 );
 
 alter table bytsscom_bytsig.patrimonio_area
