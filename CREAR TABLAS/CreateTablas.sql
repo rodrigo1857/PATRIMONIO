@@ -50,8 +50,7 @@ create table if not exists bytsscom_bytsig.patrimonio_registro
     num_factura            varchar,
     num_boleta             varchar,
     num_guia_remision      varchar,
-    num_pecosa             varchar   not null,
-    detalle                text
+    num_pecosa             varchar   not null
 );
 
 alter table bytsscom_bytsig.patrimonio_registro
@@ -117,7 +116,8 @@ create table if not exists bytsscom_bytsig.patrimonio_bien
     dimension              varchar,
     color                  varchar,
     precio                 double precision not null,
-    tipo_bien              varchar          not null
+    tipo_bien              varchar          not null,
+    detalle                text not null
 );
 
 alter table bytsscom_bytsig.patrimonio_bien
