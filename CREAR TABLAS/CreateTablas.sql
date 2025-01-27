@@ -118,7 +118,9 @@ create table if not exists bytsscom_bytsig.patrimonio_bien
     color                  varchar,
     precio                 double precision not null,
     tipo_bien              varchar          not null,
-    detalle                text not null
+    detalle                text             not null,
+    constraint patrimonio_bien_pk
+    unique (id_item, correlativo)
 );
 
 alter table bytsscom_bytsig.patrimonio_bien
