@@ -125,3 +125,6 @@ create table if not exists bytsscom_bytsig.patrimonio_bien
 
 alter table bytsscom_bytsig.patrimonio_bien
     owner to bytsscom_bytsig;
+
+create index if not exists patrimonio_bien_id_item_index
+    on bytsscom_bytsig.patrimonio_bien (id_item);
