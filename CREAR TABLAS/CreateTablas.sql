@@ -50,7 +50,8 @@ create table if not exists bytsscom_bytsig.patrimonio_registro
     num_factura            varchar,
     num_boleta             varchar,
     num_guia_remision      varchar,
-    num_pecosa             varchar   not null
+    num_pecosa             varchar   not null,
+    uuid_patrimonio_registro uuid
 );
 
 alter table bytsscom_bytsig.patrimonio_registro
