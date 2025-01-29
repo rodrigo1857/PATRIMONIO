@@ -51,7 +51,7 @@ create table if not exists bytsscom_bytsig.patrimonio_registro
     num_boleta             varchar,
     num_guia_remision      varchar,
     num_pecosa             varchar   not null,
-    uuid_patrimonio_registro uuid
+    tipo_bien              varchar
 );
 
 alter table bytsscom_bytsig.patrimonio_registro
@@ -117,10 +117,10 @@ create table if not exists bytsscom_bytsig.patrimonio_bien
     dimension              varchar,
     color                  varchar,
     precio                 double precision not null,
-    tipo_bien              varchar          not null,
-    detalle                text             not null,
+    detalle                text,
+    tipo                   varchar,
     constraint patrimonio_bien_pk
-    unique (id_item, correlativo)
+        unique (id_item, correlativo)
 );
 
 alter table bytsscom_bytsig.patrimonio_bien
@@ -128,3 +128,4 @@ alter table bytsscom_bytsig.patrimonio_bien
 
 create index if not exists patrimonio_bien_id_item_index
     on bytsscom_bytsig.patrimonio_bien (id_item);
+
