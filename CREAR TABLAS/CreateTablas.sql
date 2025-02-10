@@ -51,11 +51,17 @@ create table if not exists bytsscom_bytsig.patrimonio_registro
     num_boleta             varchar,
     num_guia_remision      varchar,
     num_pecosa             varchar   not null,
-    tipo_bien              varchar
+    tipo_bien              varchar,
+    id_cuenta              varchar
+        constraint patrimonio_registro_plan_cuenta_id_cuenta_fk
+            references bytsscom_bytsig.plan_cuenta,
+    fecha_pecosa           timestamp
 );
 
 alter table bytsscom_bytsig.patrimonio_registro
     owner to bytsscom_bytsig;
+
+
 
 
 -- TABLA PATRIMONIO REGISTRO ORDEN DE COMPRA
