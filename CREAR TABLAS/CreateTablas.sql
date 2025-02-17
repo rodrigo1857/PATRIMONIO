@@ -110,19 +110,19 @@ create table if not exists bytsscom_bytsig.patrimonio_bien
     id_patrimonio_bien     serial
         constraint pk_patrimonio_bien
             primary key,
-    id_patrimonio_registro integer          not null
+    id_patrimonio_registro integer        not null
         constraint fk_patrimonio_bien_id_patrimonio_registro
             references bytsscom_bytsig.patrimonio_registro,
-    id_item                integer          not null
+    id_item                integer        not null
         constraint patrimonio_bien_item_id_item_fk
             references bytsscom_bytsig.item,
-    correlativo            varchar          not null,
-    marca                  varchar          not null,
-    modelo                 varchar          not null,
+    correlativo            varchar        not null,
+    marca                  varchar        not null,
+    modelo                 varchar        not null,
     serie                  varchar,
     dimension              varchar,
     color                  varchar,
-    precio                 double precision not null,
+    precio                 numeric(19, 4) not null,
     detalle                text,
     tipo                   varchar,
     constraint patrimonio_bien_pk
