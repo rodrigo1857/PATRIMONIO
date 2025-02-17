@@ -55,11 +55,16 @@ create table if not exists bytsscom_bytsig.patrimonio_registro
     id_cuenta              varchar
         constraint patrimonio_registro_plan_cuenta_id_cuenta_fk
             references bytsscom_bytsig.plan_cuenta,
-    fecha_pecosa           timestamp
+    fecha_pecosa           timestamp,
+    id_persona_registro    integer
+        constraint patrimonio_registro_persona_id_persona_fk_2
+            references bytsscom_bytcore.persona
 );
 
 alter table bytsscom_bytsig.patrimonio_registro
     owner to bytsscom_bytsig;
+
+
 
 
 
