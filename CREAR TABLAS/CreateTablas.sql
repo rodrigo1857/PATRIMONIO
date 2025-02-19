@@ -99,10 +99,13 @@ create table if not exists bytsscom_bytsig.patrimonio_regnea
     id_patrimonio_registro integer not null
         constraint fk_patrimonio_regnea_id_patrimonio_registro
             references bytsscom_bytsig.patrimonio_registro,
-    id_proveedor           integer not null
+    id_proveedor           integer
         constraint patrimonio_regnea_persona_id_persona_fk
             references bytsscom_bytcore.persona,
-    id_proyecto            integer
+    id_proyecto            integer,
+    num_nea                varchar,
+    fecha_nea              timestamp,
+    resolucion_rectoral    varchar
 );
 
 alter table bytsscom_bytsig.patrimonio_regnea
