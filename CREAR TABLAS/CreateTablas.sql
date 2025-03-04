@@ -36,33 +36,36 @@ alter table bytsscom_bytsig.patrimonio_ambiente
 ------------------------------------------------
 create table if not exists bytsscom_bytsig.patrimonio_registro
 (
-    id_patrimonio_registro serial
+    id_patrimonio_registro     serial
         constraint pk_patrimonio_registro
             primary key,
-    fech_registro          timestamp not null,
-    fech_actualizacion     timestamp not null,
-    id_patrimonio_ambiente integer   not null
+    fech_registro              timestamp                              not null,
+    fech_actualizacion         timestamp                              not null,
+    id_patrimonio_ambiente     integer                                not null
         constraint fk_patrimonio_registro_id_patrimonio_ambiente
             references bytsscom_bytsig.patrimonio_ambiente,
-    id_persona_asignada    integer   not null
+    id_persona_asignada        integer                                not null
         constraint patrimonio_registro_persona_id_persona_fk
             references bytsscom_bytcore.persona,
-    num_factura            varchar,
-    num_boleta             varchar,
-    num_guia_remision      varchar,
-    num_pecosa             varchar   not null,
-    tipo_bien              varchar,
-    id_cuenta              varchar
+    num_factura                varchar,
+    num_boleta                 varchar,
+    num_guia_remision          varchar,
+    num_pecosa                 varchar                                not null,
+    tipo_bien                  varchar,
+    id_cuenta                  varchar
         constraint patrimonio_registro_plan_cuenta_id_cuenta_fk
             references bytsscom_bytsig.plan_cuenta,
-    fecha_pecosa           timestamp,
-    id_persona_registro    integer
+    fecha_pecosa               timestamp,
+    id_persona_registro        integer
         constraint patrimonio_registro_persona_id_persona_fk_2
-            references bytsscom_bytcore.persona
+            references bytsscom_bytcore.persona,
+    estado_patrimonio_registro varchar default 'R'::character varying not null
 );
 
 alter table bytsscom_bytsig.patrimonio_registro
     owner to bytsscom_bytsig;
+
+
 
 
 
@@ -87,6 +90,11 @@ create table if not exists bytsscom_bytsig.patrimonio_regoc
 alter table bytsscom_bytsig.patrimonio_regoc
     owner to bytsscom_bytsig;
 
+create index if not exists patrimonio_regoc_id_patrimonio_registro_index
+    on bytsscom_bytsig.patrimonio_regoc (id_patrimonio_registro);
+
+
+
 
 -- TABLA PATRIMONIO REGISTRO NEA
 ------------------------------------------------
@@ -110,6 +118,11 @@ create table if not exists bytsscom_bytsig.patrimonio_regnea
 
 alter table bytsscom_bytsig.patrimonio_regnea
     owner to bytsscom_bytsig;
+
+create index if not exists patrimonio_regnea_id_patrimonio_registro_index
+    on bytsscom_bytsig.patrimonio_regnea (id_patrimonio_registro);
+
+
 
 -- TABLA PATRIMONIO BIEN
 ------------------------------------------------
