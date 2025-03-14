@@ -72,6 +72,8 @@ alter table bytsscom_bytsig.patrimonio_registro
 
 
 
+
+
 -- TABLA PATRIMONIO REGISTRO ORDEN DE COMPRA
 ------------------------------------------------
 create table if not exists bytsscom_bytsig.patrimonio_regoc
@@ -162,6 +164,10 @@ create index if not exists patrimonio_bien_id_item_index
 create unique index if not exists unique_patrimonio_bien_r
     on bytsscom_bytsig.patrimonio_bien (id_item, correlativo)
     where ((estado_patrimonio_bien)::text = 'R'::text);
+
+create index if not exists patrimonio_bien_id_patrimonio_registro_index
+    on bytsscom_bytsig.patrimonio_bien (id_patrimonio_registro);
+
 
 
 
