@@ -151,7 +151,7 @@ create table if not exists bytsscom_bytsig.patrimonio_bien
         constraint chk_estado_patrimonio_bien
             check ((estado_patrimonio_bien)::text = ANY
                    (ARRAY [('R'::character varying)::text, ('A'::character varying)::text, ('B'::character varying)::text, ('O'::character varying)::text])),
-    id_item_especifico     integer                                not null
+    id_item_especifico     integer
         constraint patrimonio_bien_item_id_item_fk_2
             references bytsscom_bytsig.item
 );
