@@ -143,14 +143,17 @@ create table if not exists bytsscom_bytsig.patrimonio_bien
     marca                  varchar                                not null,
     modelo                 varchar                                not null,
     serie                  varchar,
-    dimension              varchar,
-    color                  varchar,
+    dimension              varchar                                not null,
+    color                  varchar                                not null,
     precio                 numeric(19, 4)                         not null,
     detalle                text,
     estado_patrimonio_bien varchar default 'R'::character varying not null
         constraint chk_estado_patrimonio_bien
             check ((estado_patrimonio_bien)::text = ANY
-                   (ARRAY [('R'::character varying)::text, ('A'::character varying)::text, ('B'::character varying)::text, ('O'::character varying)::text]))
+                   (ARRAY [('R'::character varying)::text, ('A'::character varying)::text, ('B'::character varying)::text, ('O'::character varying)::text])),
+    id_item_especifico     integer                                not null
+        constraint patrimonio_bien_item_id_item_fk_2
+            references bytsscom_bytsig.item
 );
 
 comment on column bytsscom_bytsig.patrimonio_bien.estado_patrimonio_bien is 'R: Bien registrado, A: Bien anulado por el usuario, O: Bien con correlativo reutilizado: B:Bien dado de baja';
@@ -161,12 +164,14 @@ alter table bytsscom_bytsig.patrimonio_bien
 create index if not exists patrimonio_bien_id_item_index
     on bytsscom_bytsig.patrimonio_bien (id_item);
 
-create unique index if not exists unique_patrimonio_bien_r
-    on bytsscom_bytsig.patrimonio_bien (id_item, correlativo)
-    where ((estado_patrimonio_bien)::text = 'R'::text);
-
 create index if not exists patrimonio_bien_id_patrimonio_registro_index
     on bytsscom_bytsig.patrimonio_bien (id_patrimonio_registro);
+
+create unique index if not exists unique_patrimonio_bien_r
+    on bytsscom_bytsig.patrimonio_bien (id_item, correlativo)
+    where ((estado_patrimonio_bien)::text = ANY ((ARRAY ['R'::character varying, 'A'::character varying])::text[]));
+
+
 
 
 
