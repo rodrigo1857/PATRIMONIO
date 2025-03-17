@@ -141,7 +141,7 @@ create table if not exists bytsscom_bytsig.patrimonio_bien
             references bytsscom_bytsig.item,
     id_item_especifico     integer                               --not null
         constraint patrimonio_bien_item_id_item_fk_2
-            references bytsscom_bytsig.item
+            references bytsscom_bytsig.item,
     correlativo            varchar                                not null,
     marca                  varchar                                not null,
     modelo                 varchar                                not null,
