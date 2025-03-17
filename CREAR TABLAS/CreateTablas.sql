@@ -139,6 +139,9 @@ create table if not exists bytsscom_bytsig.patrimonio_bien
     id_item                integer                                not null
         constraint patrimonio_bien_item_id_item_fk
             references bytsscom_bytsig.item,
+    id_item_especifico     integer                               --not null
+        constraint patrimonio_bien_item_id_item_fk_2
+            references bytsscom_bytsig.item
     correlativo            varchar                                not null,
     marca                  varchar                                not null,
     modelo                 varchar                                not null,
@@ -150,10 +153,7 @@ create table if not exists bytsscom_bytsig.patrimonio_bien
     estado_patrimonio_bien varchar default 'R'::character varying not null
         constraint chk_estado_patrimonio_bien
             check ((estado_patrimonio_bien)::text = ANY
-                   (ARRAY [('R'::character varying)::text, ('A'::character varying)::text, ('B'::character varying)::text, ('O'::character varying)::text])),
-    id_item_especifico     integer
-        constraint patrimonio_bien_item_id_item_fk_2
-            references bytsscom_bytsig.item
+                   (ARRAY [('R'::character varying)::text, ('A'::character varying)::text, ('B'::character varying)::text, ('O'::character varying)::text]))
 );
 
 comment on column bytsscom_bytsig.patrimonio_bien.estado_patrimonio_bien is 'R: Bien registrado, A: Bien anulado por el usuario, O: Bien con correlativo reutilizado: B:Bien dado de baja';
