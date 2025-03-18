@@ -167,9 +167,13 @@ create index if not exists patrimonio_bien_id_item_index
 create index if not exists patrimonio_bien_id_patrimonio_registro_index
     on bytsscom_bytsig.patrimonio_bien (id_patrimonio_registro);
 
-create unique index if not exists unique_patrimonio_bien_r
+create unique index if not exists unique_patrimonio_bien_estado_registrado
     on bytsscom_bytsig.patrimonio_bien (id_item, correlativo)
-    where ((estado_patrimonio_bien)::text = ANY ((ARRAY ['R'::character varying, 'A'::character varying])::text[]));
+    where ((estado_patrimonio_bien)::text = 'R'::text);
+
+create unique index if not exists unique_patrimonio_bien_estado_anulado
+    on bytsscom_bytsig.patrimonio_bien (id_item, correlativo)
+    where ((estado_patrimonio_bien)::text = 'A'::text);
 
 
 
