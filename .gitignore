@@ -1,0 +1,7 @@
+# Ignorar archivos Excel solo en la raíz
+/*.xls
+/*.xlsx
+/*.xlsm
+# Ignorar cualquier archivo Excel dentro de la carpeta scripts
+scripts/**/*.xlsx*
+scripts/**/*.sql*
