@@ -1,3 +1,15 @@
+drop table bytsscom_bytsig.patrimonio_regoc;
+
+drop table bytsscom_bytsig.patrimonio_regnea;
+
+drop table bytsscom_bytsig.patrimonio_area;
+
+drop table bytsscom_bytsig.patrimonio_bien;
+
+drop table bytsscom_bytsig.patrimonio_registro;
+
+drop table bytsscom_bytsig.patrimonio_ambiente;
+
 -- TABLA PATRIMONIO AREA
 ------------------------------------------------
 
