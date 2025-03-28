@@ -71,11 +71,21 @@ create table if not exists bytsscom_bytsig.patrimonio_registro
     id_persona_registro        integer
         constraint patrimonio_registro_persona_id_persona_fk_2
             references bytsscom_bytcore.persona,
-    estado_patrimonio_registro varchar default 'R'::character varying not null
+    estado_patrimonio_registro varchar default 'R'::character varying not null,
+    id_persona_anulacion       integer
+        constraint patrimonio_registro_persona_id_persona_fk_3
+            references bytsscom_bytcore.persona,
+    fech_anulacion             timestamp
 );
+
+comment on column bytsscom_bytsig.patrimonio_registro.id_persona_anulacion is 'identificador unico de la persona que anulo un registro';
+
+comment on column bytsscom_bytsig.patrimonio_registro.fech_anulacion is 'fecha de anulacion de un registro de la base de datos';
 
 alter table bytsscom_bytsig.patrimonio_registro
     owner to bytsscom_bytsig;
+
+
 
 
 
