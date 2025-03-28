@@ -133,30 +133,39 @@ create table if not exists bytsscom_bytsig.patrimonio_bien
     id_patrimonio_bien     serial
         constraint pk_patrimonio_bien
             primary key,
-    id_patrimonio_registro integer                                not null
+    id_patrimonio_registro integer                                     not null
         constraint fk_patrimonio_bien_id_patrimonio_registro
             references bytsscom_bytsig.patrimonio_registro,
-    id_item                integer                                not null
+    id_item                integer                                     not null
         constraint patrimonio_bien_item_id_item_fk
             references bytsscom_bytsig.item,
-    id_item_especifico     integer                               --not null
+    id_item_especifico     integer
         constraint patrimonio_bien_item_id_item_fk_2
             references bytsscom_bytsig.item,
-    correlativo            varchar                                not null,
-    marca                  varchar                                not null,
-    modelo                 varchar                                not null,
+    correlativo            varchar                                     not null
+        constraint chk_codigo_length
+            check (length((correlativo)::text) = 4),
+    correlativo_ordinal    integer                                     not null,
+    marca                  varchar                                     not null,
+    modelo                 varchar                                     not null,
     serie                  varchar,
-    dimension              varchar                                not null,
-    color                  varchar                                not null,
-    precio                 numeric(19, 4)                         not null,
+    dimension              varchar                                     not null,
+    color                  varchar                                     not null,
+    precio                 numeric(19, 4)                              not null,
     detalle                text,
-    estado_patrimonio_bien varchar default 'R'::character varying not null
+    estado_patrimonio_bien varchar default 'R'::character varying      not null
         constraint chk_estado_patrimonio_bien
             check ((estado_patrimonio_bien)::text = ANY
-                   (ARRAY [('R'::character varying)::text, ('A'::character varying)::text, ('B'::character varying)::text, ('O'::character varying)::text]))
+                   (ARRAY [('R'::character varying)::text, ('A'::character varying)::text, ('B'::character varying)::text, ('O'::character varying)::text])),
+    tipo_registro          varchar default 'NORMAL'::character varying not null
+        constraint check_tipo_registro
+            check ((tipo_registro)::text = ANY
+                   (ARRAY [('NORMAL'::character varying)::text, ('ADICIONAL'::character varying)::text, ('REGALO'::character varying)::text, ('DESCONTADO'::character varying)::text]))
 );
 
 comment on column bytsscom_bytsig.patrimonio_bien.estado_patrimonio_bien is 'R: Bien registrado, A: Bien anulado por el usuario, O: Bien con correlativo reutilizado: B:Bien dado de baja';
+
+comment on column bytsscom_bytsig.patrimonio_bien.tipo_registro is 'N: NORMAL, A: ADICIONAL, R: REGALO';
 
 alter table bytsscom_bytsig.patrimonio_bien
     owner to bytsscom_bytsig;
@@ -168,12 +177,13 @@ create index if not exists patrimonio_bien_id_patrimonio_registro_index
     on bytsscom_bytsig.patrimonio_bien (id_patrimonio_registro);
 
 create unique index if not exists unique_patrimonio_bien_estado_registrado
-    on bytsscom_bytsig.patrimonio_bien (id_item, correlativo)
+    on bytsscom_bytsig.patrimonio_bien (id_item, correlativo, correlativo_ordinal)
     where ((estado_patrimonio_bien)::text = 'R'::text);
 
 create unique index if not exists unique_patrimonio_bien_estado_anulado
-    on bytsscom_bytsig.patrimonio_bien (id_item, correlativo)
+    on bytsscom_bytsig.patrimonio_bien (id_item, correlativo, correlativo_ordinal)
     where ((estado_patrimonio_bien)::text = 'A'::text);
+
 
 
 
